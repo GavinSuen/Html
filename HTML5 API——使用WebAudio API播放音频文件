@@ -1,0 +1,42 @@
+WebAudio API主要是为音频文件添加音效而设计的，但是它也可以用来播放音频文件，这类似于HTML5 audio元素的功能，只是audio元素可以控制界面，用户可以点击界面上的播放/停止按钮来控制文件的播放，也可以拖动界面上的进度条来控制播放进度，而采用WebAudio API实现的音频播放则没有控制界面，但对于移动平台Android，IOS确实非常有用的，例如在Android平台上Chrome浏览器设置了gettrue-requirement-for-media-playback属性，意思是说不能通过调用audio元素的play函数实现音频文件的播放，除了调用play函数之外，还必须要求用户在屏幕上有一个手势操作，该行为和苹果的IOS上的行文一致。现在如果采用WebAudio来播放音频文件就不会有该限制，开发者可以任意控制音频文件的播放和停止，这对移动平台上的游戏开发者而言尤为重要，目前比较流行的游戏引擎Cocos2d-html5正在使用该功能。
+
+代码实例：
+var context = new window.webkitAudioContext();
+var source = null;
+var audioBuffer = null;
+function stopSound(){
+	if(source){
+		source.noteOff(0);  //立即停止
+	}
+}
+function playSound(){
+	source = context.createBufferSource();
+	source.buffer = audioBuffer;
+	source.loop = true;
+	source.connect(context.destination);
+	source.noteOn(0);  //立即播放
+}
+function initSound(arrayBuffer){
+	context.decodeAudioData(arrayBuffer,function(buffer){
+		audioBuffer = buffer;
+		playSound();
+	},function(e){    //解码错误是的回调函数
+	console.log(e)});
+}
+function loadAudioFile(url){
+	var xhr = new XMLHttpRequest();   //通过XHR下载音频文件
+	xhr.open('GET',url,true);
+	xhr.responseType = 'arraybuffer';
+	xhr.onload = function(e){   //下载完成
+		initSound(this.response);
+	};
+	xhr.send();
+}
+loadSoundFile('demo.mp3');
+
+实例先通过XMLHttpRequest API从服务器上下载音频文件到本地，在下载完毕后，调用initSound函数，该函数调用WebAudio中的解码函数decodeAudioData对下载的数据（当前存储为ArrayBuffer）进行解码，如果平台不支持音频问价的解码，将调用出错回调函数，如果解码成功就会调用成功的回调函数。
+现在假设解码成功，在成功的解码函数中，调用playSound函数去播放解码后的音频文件。
+
+使用WenAudio播放音频文件的效率问题
+前面介绍了如何使用WebAudio来播放音频文件，但是需要注意的是不要轻易采用WebAudio的该功能，引文当音频文件较大时，可能会影响程序的执行效率。首先，如果我们在程序中采用XMLHttpRequest去下载文件是，这是一个比较耗时的操作，具体的时间取决于当前的网络环境和文件的大小，尽管程序中采用异步的下载方式，但是同样会让音频的播放延迟。其次，程序需要调用WebAudio的decodeAudioData函数去解码整个音频文件，这里需要注意的是它需要一次性解码整个文件后，才会触发成功的回调函数，程序才能开始播放音频文件，这又一次的增加了音频文件播放的延迟，另外，由于整个文件的一次性解码，整个解码前和解码后的文件都同时存放在内存中，这也引起了内存的巨大开销（相比采用audio元素播放时，因为audio元素是一边解码一边播放）。此时可能会有人质疑decodeAudioData API的实现有问题，其实该函数是为解码比较短小的声音文件而设计的，另外由于WebAudio对音频的延时性特别关注，所以为了较少声音的延时，在音效处理前要求把需要处理的音频文件装载进内存。
+所以如果需要使用WebAudio播放文件，有比较关注效率问题，建议把音频文件的大小缩小一些或者分解成若干个小的文件再分别加载解码播放。
