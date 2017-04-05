@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>JavaScript基本语法二</title>
+</head>
+<body>
+    <!-- 实验要求：编写一个函数,从页面输入一个整数(1—9),打印出对应的乘法表 -->
+    <input type="number" id="in">
+    <input type="button" id="submit" value="确定">
+    <div id="cont"></div>
+
+    <script>
+        var input = document.querySelector("#in");
+        var submit = document.querySelector("#submit");
+        var cont = document.querySelector("#cont");
+        submit.onclick=function(){
+            input = input.value;
+            if(input == NaN){
+                alert("输入错误，请正确输入！");
+            }else{
+                for(i=1;i <= 9 ;i++){
+                    cont.innerHTML += "<br>";
+                    for(var j=i;j <= input;j++){
+                        var output = "<i>"+ i + "*" + j +" = " + i*j +"</i>&nbsp";
+                        cont.innerHTML += output ;
+                    }
+
+                }
+            }
+        };
+    </script>
+</body>
+</html>

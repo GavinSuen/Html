@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>JavaScript基本语法</title>
+    <style type="text/css">
+        div{
+            width: 230px;
+            height: auto;
+            margin: 0 auto;
+            background: pink;
+        }
+
+        input[type=number]{
+
+        }
+        .sys{
+            display: block;
+            width: 100px;
+            height: 30px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <!--
+    实验目的：1.掌握在html文档中嵌入JavaScript代码方法
+              2.掌握JavaScript基本语法以及各种控制结构
+    实验要求：1.编写如左图所示，具有能对两个操作数进行加、减、乘、除运算的简易计算器。
+    -->
+    <div>
+        <h3>简易计算器</h3>
+        第一个数<input type="number" id="first"><br>
+        第二个数<input type="number" id="second"><br>
+        <input type="button" value="+" class="sys add"><br>
+        <input type="button" value="-" class="sys sub"><br>
+        <input type="button" value="*" class="sys mul"><br>
+        <input type="button" value="/" class="sys div"><br>
+        计算结果<input type="number" id="result">
+    </div>
+
+
+    `<script type="text/javascript">
+        var fir = document.querySelector("#first");
+        var sec = document.querySelector("#second");
+        var rel = document.querySelector("#result");
+        var sys = document.querySelectorAll(".sys");
+
+        for(var i= 0,l=sys.length;i<l;i++){
+            sys[i].index = i;
+            sys[i].onclick=function(){
+                if(fir.value==""||sec.value==""){alert("输入不正确！");
+                }else{
+                    var result = eval(parseFloat(fir.value) + sys[this.index].value + parseFloat(sec.value));
+                    rel.value = result;
+                }
+            };
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>html5表单标签使用</title>
+</head>
+<body>
+    <!--
+        实验目的：掌握html5新增标签和新增属性的使用
+        实验要求：实现下列表单设计
+    -->
+   <form>
+       <h3>请填写个人信息</h3>
+       <h5>来试一下吧</h5>
+       <fieldset>
+           <legend>你想在哪里收到邮件？</legend>
+           邮箱<input type="email" placeholder="请填写邮箱地址"/>
+       </fieldset>
+       <fieldset>
+           <legend>详细信息</legend>
+           <select>
+               <option>前缀</option>
+           </select>
+           名<input type="text" placeholder="First Name">
+           姓名首字母<input type="text" placeholder="姓名首字母">
+           昵称<input type="text" placeholder="昵称">
+       </fieldset>
+       <fieldset>
+           <legend>收入情况</legend>
+           信用卡所属银行<input type="text" placeholder="信用卡所属银行">
+           卡号<input type="text" placeholder="卡号">
+           <select><option>卡的类型</option></select>
+           信用卡到期时间<input type="date">
+           密码<input type="password" placeholder="安全码">
+           <h5>你想要一份保险吗？</h5>
+           <input type="radio" name="radio">Yes Please!
+           <input type="radio" name="radio">No thanks
+       </fieldset>
+       <fieldset>
+           <input type="button" value="提交" name="">
+       </fieldset>
+   </form>
+</body>
+</html>

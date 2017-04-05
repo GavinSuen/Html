@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>DOM编程——添加删除</title>
+    <style>
+        #table{
+            width: 400px;
+            text-align: center;
+            border-right: 1px solid #333;
+            border-bottom: 1px solid #333;
+        }
+        #table td{
+            border-top: 1px solid #333;
+            border-left: 1px solid #333;
+        }
+    </style>
+</head>
+<body>
+    <!-- 实验目的：1.掌握访问HTML元素的方法
+    `              2.学会增加和删除HTML元素的方法。
+        实验要求：实现如下功能：
+    -->
+    姓名：<input type="text" class="name">
+    联系方式：<input type="text" class="phone">
+    年龄：<input type="text" class="age">
+    <input type="button" value="添加用户" class="button">
+
+    <table id="table" cellSpacing="0"> 
+        <tt>
+            <td>用户</td>
+            <td>联系方式</td>
+            <td>年龄</td>
+            <td>操作</td>
+        </tt>
+        <tr>
+            <td>李明</td>
+            <td>123123123</td>
+            <td>20</td>
+            <td><input type="button" value="删除" class="del"></td>
+        </tr>
+    </table>
+
+    <script>
+        function $(arr){
+            return document.querySelector(arr);
+        }
+
+        var userName = $(".name");
+        var phone = $(".phone");
+        var age = $(".age");
+        var but = $(".button");
+        var tab = $("#table");
+        
+
+        but.onclick=function(){
+            if(userName.value==""||phone.value==""||age.value==""){
+                alert("输入错误！");
+            }else{
+                var tr = "<tr>"+
+                    "<td>"+userName.value+"</td>"+
+                    "<td>"+phone.value+"</td>"+
+                    "<td>"+age.value+"</td>"+
+                    "<td>"+"<input type='button' value='删除' class='del'>"+"</td>"
+                   +" </tr>";
+                tab.innerHTML += tr;
+                delRow();
+            }
+        };
+
+        function delRow(){
+            var del = document.querySelectorAll(".del");
+            var trs = document.querySelectorAll("#table tr");
+            for(var i=0;i<del.length;i++){
+                del[i].index= i+1;
+                del[i].onclick=function(){
+                   trs[this.index].remove(this); 
+                };
+            }
+        }
+        delRow();
+       
+    </script>
+</body>
+</html>
