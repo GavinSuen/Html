@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>canvas</title>
+</head>
+<body>
+<canvas></canvas>
+
+<script>
+	var can = document.querySelector("canvas");
+	var ctx = can.getContext("2d");
+
+	/* 绘制圆形 */
+	function drawRound(x,y,r,start,end,color,type){
+		var ctx = this.ctx;
+		var unit = Math.PI/180;
+		ctx.arc(x,y,r,start*unit,end*unit);
+		ctx[type+"Style"]=color;
+		ctx.closePath();
+		ctx[type]();
+	}
+	//drawRound(180,100,50,60,360,"grey","fill");
+
+	/* 绘制三角形 */
+	function drawTriangle(x1,y1,x2,y2,x3,y3,color,type){
+		var ctx = this.ctx;
+		ctx.beginPath();
+		ctx.moveTo(x1,y1);
+		ctx.lineTo(x2,y2);
+		ctx.lineTo(x3,y3);
+		ctx[type+"Style"]=color;
+		ctx.closePath();
+		ctx[type]();
+	}
+	//drawTriangle(10,10,30,50,70,70,"yellow","fill");
+
+	/* 绘制矩形 */
+	function drawRectangle(x,y,width,height,color,type){
+		var ctx = this.ctx;
+		ctx.beginPath();
+		ctx[type+"Style"]=color;
+		ctx[type+"Rect"](x,y,width,height);
+		ctx.closePath();
+		ctx[type]();
+	}
+	//drawRectangle(80,10,50,60,"red","fill");
+
+	/* 绘制多边形 */
+	function drawPolygon(conf){
+		var x = conf && conf.x || 0;
+		var y = conf && conf.y || 0;
+		var r = conf && conf.r || 0;
+		var num = conf && conf.num || 3;
+		var width = conf && conf.width || 5;
+		var strokeStyle = conf && conf.strokeStyle;
+		var fillStyle = conf && conf.fillStyle;
+
+		var ctx = this.ctx;
+		ctx.beginPath();
+		var startX = x + r*Math.cos(2*Math.PI*0/num);
+		var startY = y + r*Math.sin(2*Math.PI*0/num);
+		ctx.moveTo(startX,startY);
+		for(var i=1;i<=num;i++){
+			var newX = x + r*Math.cos(2*Math.PI*i/num);
+			var newY = y + r*Math.sin(2*Math.PI*i/num);
+			ctx.lineTo(newX,newY);
+		}
+		ctx.closePath();
+
+		if(strokeStyle){
+			ctx.strokeStyle = strokeStyle;
+			ctx.lineWidth = width;
+			ctx.lineJoin = "round";
+			ctx.stroke();
+		}
+
+		if(fillStyle){
+			ctx.fillStyle = fillStyle;
+			ctx.fill();
+		}
+	}
+
+	drawPolygon({
+		x:70,
+		y:70,
+		num:10,
+		r:50,
+		strokeStyle:"blue",
+		fillStyle:"red"
+	});
+</script>
+</body>
+</html>
