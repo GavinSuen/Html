@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>html5画布canvas的使用</title>
+	<style>
+		#cav{
+			padding: 50px;
+	</style>
+</head>
+<body>
+	<canvas id="cav"></canvas>
+
+	<script type="text/javascript">
+		var cav = document.querySelector("#cav");
+		var ctx = cav.getContext("2d");
+		
+		//绘制任意多边形
+		function drawPolygon(conf){
+			var x = conf && conf.x || 0;
+			var y = conf && conf.y || 0;
+			var r = conf && conf.r || 0;
+			var num = conf && conf.num || 3;
+			var width = conf && conf.width || 5;
+			var color = conf && conf.color || "red";
+			var lineJoin = conf && conf.lineJoin;
+			var strokeStyle = conf && conf.strokeStyle;
+			var fillStyle = conf && conf.fillStyle;
+
+			ctx.beginPath();
+			ctx.lineWidth = width;
+			for(var i=0;i<=num;i++){
+				var newX = x + r*Math.cos(2*Math.PI*i/num);
+				var newY = y + r*Math.sin(2*Math.PI*i/num);
+				ctx.lineTo(newX,newY);
+			}
+			ctx.closePath();
+
+			if(strokeStyle){
+				ctx.strokeStyle=strokeStyle;
+				ctx.lineJoin=lineJoin
+				ctx.stroke();
+			}
+
+			if(fillStyle){
+				ctx.fillStyle=fillStyle;
+				ctx.fill();
+			}
+		}
+		drawPolygon({
+			x:100,  				 //多边形中心横坐标
+			y:40,   				 //多边形中心纵坐标
+			r:30,  					 //多边形距顶点的距离
+			num:3,  				 //多边形变数
+			width:3,				 //线条宽度
+			lineJoin:"round",	     //连接样式
+			strokeStyle:"green",     //边框颜色
+			fillStyle:"pink"         //填充颜色
+		});
+	</script>
+</body>
+</html>

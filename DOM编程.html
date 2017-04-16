@@ -6,21 +6,23 @@
 </head>
 <body>
     <!-- 验要求：实现全选/全不选/反选功能 -->
-    <input type="checkbox" id="sel">全选/全不选
+    <input type="checkbox" id="sel">全选/全不选<br>
     <input type="checkbox" class="list" name="soccer">足球
     <input type="checkbox" class="list" name="basketball">篮球
     <input type="checkbox" class="list" name="swim">游泳
-    <input type="checkbox" class="list" name="sing">唱歌
+    <input type="checkbox" class="list" name="sing">唱歌<br>
     <input type="button" value="全选" id="all">
     <input type="button" value="全不选" id="noAll">
     <input type="button" value="反选" id="unSel">
 
     <script type="text/javascript">
-        var sel = document.querySelector('#sel');
-        var lists = document.querySelectorAll('.list');
-        var all = document.querySelector('#all');
-        var noALl = document.querySelector('#noAll');
-        var unSel = document.querySelector('#unSel');
+        function $(arr){ return document.querySelectorAll(arr); }
+
+        var sel = $('#sel')[0];
+        var lists = $('.list');
+        var all = $('#all')[0];
+        var noAll = $('#noAll')[0];
+        var unSel = $('#unSel')[0];
 
         sel.onclick=function(){
             if(sel.checked) {
@@ -41,7 +43,7 @@
             sel.checked='checked';
         };
 
-        noALl.onclick=function(){
+        noAll.onclick=function(){
             for (var i = 0, l = lists.length; i < l; i++) {
                 lists[i].checked = '';
             }

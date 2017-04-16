@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>html5拖拽</title>
+	<style>
+		li{
+			cursor: pointer;
+		}
+		li:hover{
+			background: #888;
+		}
+
+		.highlighted{
+			background: yellow;
+		}
+
+		.validtarget{
+			background: lightblue;
+		}
+
+		div{
+			
+			float: left;
+			margin-right: 50px;
+		}
+	</style>
+</head>
+<body>
+	
+<!-- 通过添加draggable="true"属性使得元素可拖动 -->
+<!-- <p draggable="true">p标签实例</p>
+	 <div draggable="true">div标签实例</div>
+	 <img src="#" alt="图片实例" draggable="true"> -->
+
+<!-- 构建拖放应用 -->
+	<ul id="members">
+		<li draggable="true" data-age="1" class="hhhh">Brain Albers</li>
+		<li draggable="true" data-age="2">Frank Salim</li>
+		<li draggable="true" data-age="3">Jennifer</li>
+		<li draggable="true" data-age="4">John Kemble</li>
+		<li draggable="true" data-age="5">Lorraine Gaunce</li>
+		<li draggable="true" data-age="6">Mark Wang</li>
+		<li draggable="true" data-age="7">Morgan Stephen</li>
+		<li draggable="true" data-age="8">Peter Lubbers</li>
+		<li draggable="true" data-age="9">Vanessa Combs</li>
+		<li draggable="true" data-age="10">Vivian Lopez</li>
+	</ul>
+
+	<div class="droplist">
+		<fieldset id="racesFiels">
+			<legend>Racers(By Age)</legend>
+			<ul id="racers">eee</ul>
+		</fieldset>
+	</div>
+
+	<div class="droplist">
+		<fieldset id="volunteersField">
+			<legend>Volunteers(By Name)</legend>
+			<ul id="volunteers">222</ul>
+		</fieldset>
+	</div>
+
+
+
+	<script>
+		function loadDemo(){
+			var racersList = document.getElementById("racers");
+			var volunteersList = document.getElementById("volunteers");
+			
+			var lists = [racersList,volunteersList];
+			[].forEach.call(lists,function(list){
+				list.addEventListener("dragenter",handleDragEnter,false);
+				list.addEventListener("drgeleave",handleDragLeave,false);
+				list.addEventListener("drop",handleDrop,false);
+			});
+
+			racersList.addEventListener("dragover",handleDragOverRacers,false);
+			volunteersList.addEventListener("dragover",handleDragOverVolunteers,false);
+
+
+			var members = document.querySelectorAll("#members li");
+			[].forEach.call(members,function(li){
+				li.addEventListener("dragstart",handleDragStartLi,false);
+				li.addEventListener("dragend",handleDragEndLi,false);
+			});
+
+			function handleDragStartLi(){
+				//console.log("sss");
+				//racersList.className="highlighted";
+		}
+		}
+
+
+
+		function handleDragEndLi(){}
+
+		function handleDragOverRacers(evt){
+			//alert("jjj");
+		}
+
+		function handleDragOverVolunteers(){}
+
+		function handleDragEnter(){
+			
+		}
+
+		function handleDragLeave(){}
+
+		function handleDrop(evt){
+			evt.preventDefault();
+			var data = evt.dataTransfer.getData("Text");
+			alert("drop");
+		}
+
+		
+
+		window.addEventListener("load",loadDemo,false);
+	</script>
+</body>
+</html>

@@ -5,20 +5,18 @@
     <title>JavaScript基本语法</title>
     <style type="text/css">
         div{
-            width: 230px;
+            width: 330px;
             height: auto;
             margin: 0 auto;
-            background: pink;
         }
 
-        input[type=number]{
-
+        input{
+			margin: 10px;
         }
         .sys{
-            display: block;
-            width: 100px;
+            display: inline-block;
+            width: 50px;
             height: 30px;
-            margin: 0 auto;
         }
     </style>
 </head>
@@ -32,11 +30,11 @@
         <h3>简易计算器</h3>
         第一个数<input type="number" id="first"><br>
         第二个数<input type="number" id="second"><br>
-        <input type="button" value="+" class="sys add"><br>
-        <input type="button" value="-" class="sys sub"><br>
-        <input type="button" value="*" class="sys mul"><br>
+        <input type="button" value="+" class="sys add">	
+        <input type="button" value="-" class="sys sub">	
+        <input type="button" value="*" class="sys mul">	
         <input type="button" value="/" class="sys div"><br>
-        计算结果<input type="number" id="result">
+        计算结果<input type="text" id="result">
     </div>
 
 

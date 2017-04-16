@@ -4,13 +4,20 @@
     <meta charset="UTF-8">
     <title>DOM编程——添加删除</title>
     <style>
-        #table{
-            width: 400px;
+        section{
+            width: 800px;
+            height: 40px;
+            margin: 0 auto;
+        }
+
+        table{
+            width: 800px;
             text-align: center;
+            margin: 30px auto;
             border-right: 1px solid #333;
             border-bottom: 1px solid #333;
         }
-        #table td{
+        th,td{
             border-top: 1px solid #333;
             border-left: 1px solid #333;
         }
@@ -21,18 +28,20 @@
     `              2.学会增加和删除HTML元素的方法。
         实验要求：实现如下功能：
     -->
-    姓名：<input type="text" class="name">
-    联系方式：<input type="text" class="phone">
-    年龄：<input type="text" class="age">
-    <input type="button" value="添加用户" class="button">
-
+    <section>
+        姓名：<input type="text" class="name">
+        联系方式：<input type="text" class="phone">
+        年龄：<input type="text" class="age">
+        <input type="button" value="添加用户" class="button">
+    </section>
+    <hr>
     <table id="table" cellSpacing="0"> 
-        <tt>
-            <td>用户</td>
-            <td>联系方式</td>
-            <td>年龄</td>
-            <td>操作</td>
-        </tt>
+        <tr>
+            <th>用户</th>
+            <th>联系方式</th>
+            <th>年龄</th>
+            <th>操作</th>
+        </tr>
         <tr>
             <td>李明</td>
             <td>123123123</td>
@@ -43,14 +52,14 @@
 
     <script>
         function $(arr){
-            return document.querySelector(arr);
+            return document.querySelectorAll(arr);
         }
 
-        var userName = $(".name");
-        var phone = $(".phone");
-        var age = $(".age");
-        var but = $(".button");
-        var tab = $("#table");
+        var userName = $(".name")[0];
+        var phone = $(".phone")[0];
+        var age = $(".age")[0];
+        var but = $(".button")[0];
+        var tab = $("#table")[0];
         
 
         but.onclick=function(){
@@ -69,8 +78,8 @@
         };
 
         function delRow(){
-            var del = document.querySelectorAll(".del");
-            var trs = document.querySelectorAll("#table tr");
+            var del = $(".del");
+            var trs = $("#table tr");
             for(var i=0;i<del.length;i++){
                 del[i].index= i+1;
                 del[i].onclick=function(){
