@@ -34,7 +34,7 @@
 
 <!-- 构建拖放应用 -->
 	<ul id="members">
-		<li draggable="true" data-age="1" class="hhhh">Brain Albers</li>
+		<li draggable="true" data-age="1" id="hhhh">Brain Albers</li>
 		<li draggable="true" data-age="2">Frank Salim</li>
 		<li draggable="true" data-age="3">Jennifer</li>
 		<li draggable="true" data-age="4">John Kemble</li>
@@ -49,14 +49,14 @@
 	<div class="droplist">
 		<fieldset id="racesFiels">
 			<legend>Racers(By Age)</legend>
-			<ul id="racers">eee</ul>
+			<ul id="racers"></ul>
 		</fieldset>
 	</div>
 
 	<div class="droplist">
 		<fieldset id="volunteersField">
 			<legend>Volunteers(By Name)</legend>
-			<ul id="volunteers">222</ul>
+			<ul id="volunteers"></ul>
 		</fieldset>
 	</div>
 
@@ -70,7 +70,7 @@
 			var lists = [racersList,volunteersList];
 			[].forEach.call(lists,function(list){
 				list.addEventListener("dragenter",handleDragEnter,false);
-				list.addEventListener("drgeleave",handleDragLeave,false);
+				list.addEventListener("dragleave",handleDragLeave,false);
 				list.addEventListener("drop",handleDrop,false);
 			});
 
@@ -82,33 +82,44 @@
 			[].forEach.call(members,function(li){
 				li.addEventListener("dragstart",handleDragStartLi,false);
 				li.addEventListener("dragend",handleDragEndLi,false);
+				//li.addEventListener("drop",handleDrop,false);
 			});
 
-			function handleDragStartLi(){
-				//console.log("sss");
-				//racersList.className="highlighted";
-		}
+			
 		}
 
+		function handleDragStartLi(ev){
+			ev.dataTransfer.setData("Text",ev.target.id);	
+		}
 
 
-		function handleDragEndLi(){}
+		function handleDragEndLi(ev){
+			//evt.preventDefault();
 
-		function handleDragOverRacers(evt){
-			//alert("jjj");
+			var data = ev.dataTransfer.getData("Text");
+			alert(document.getElementById(data));//null
+			ev.target.appendChild(document.getElementById(data));
+			//alert("drop");
+		}
+
+		function handleDragOverRacers(){
+			//alert("overRa");
 		}
 
 		function handleDragOverVolunteers(){}
 
 		function handleDragEnter(){
-			
+			//alert("enter");
 		}
 
-		function handleDragLeave(){}
+		function handleDragLeave(){
+			//alert("leave");
+		}
 
 		function handleDrop(evt){
 			evt.preventDefault();
 			var data = evt.dataTransfer.getData("Text");
+			evt.target.appendChild(document.getElementById(data));
 			alert("drop");
 		}
 

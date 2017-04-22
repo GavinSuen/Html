@@ -11,23 +11,22 @@
 	</style>
 </head>
 <body>
-	<p>将图片拖入到边框中</p>
-	<div id="div" ondragover="handleDragOver(event)" ondrop="handleDrop(event)"></div>
-	<img src="thumbnail_2.jpg" alt="图片" draggable="true" ondrag="handleDrag(event)">
+	<div id="div" draggable="true">
+		
+	</div>
+	<img src="thumbnail_2.jpg" alt="" id="img" ondrop="drop(event)" ondragstart="dragStart(event)" draggable="true">
 
 	<script>
-		function handleDrag(ev){
-			ev.dataTransfer.setData("Text",ev.target.id); 
-		}
+		function drag(){}
 
-		function handleDrop(ev){
-			var data = ev.dataTransfer.getData("Text");
-			ev.target.appendChild(document.getElementById(data));
-			alert("sss");
-		}
-
-		function handleDragOver(ev){
+		function drop(ev){
 			ev.preventDefault();
+    var data=ev.dataTransfer.getData("Text");
+    ev.target.appendChild(document.getElementById(data));
+		}
+
+		function dragStart(ev){
+			ev.dataTransfer.setData("Text",ev.target.id);
 		}
 	</script>
 </body>

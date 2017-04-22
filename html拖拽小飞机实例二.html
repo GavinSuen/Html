@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>拖拽小飞机实例二</title>
+	<style>
+		
+		.trash{
+			display: block;
+		}
+
+
+	</style>
+</head>
+<body>
+
+	<img src="trash.png" alt="" class="trash">
+
+	<img src="plane.png" alt="小飞机" class="plane_1">
+	<img src="plane_2.png" alt="小飞机" class="plane_2">
+	<img src="plane_3.png" alt="小飞机" class="plane_3">
+	
+	<script>
+		var list = document.querySelectorAll("img");
+		var trash = document.querySelector(".trash");
+
+		for(var i=0;i<list.length;i++){
+			var p = list[i];
+			p.ondragstart=function(e){
+				e.dataTransfer.setData("Text",this.className);
+			};
+			p.ondrag=function(e){};
+			p.ondragend=function(e){};
+
+			trash.ondragenter=function(e){};
+			trash.ondragover=function(e){
+				e.preventDefault();
+				this.style.opacity = ".3";
+			};
+			trash.ondrop=function(e){
+				var className = e.dataTransfer.getData("Text");
+				var p = document.querySelector("."+className);
+				p.parentNode.removeChild(p);
+				this.style.opacity = "1";
+			};
+			trash.ondragleave=function(e){
+				this.style.opacity = "1";
+			};
+		}
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>小飞机实例</title>
+</head>
+
+<style>
+	body{
+		margin: 10px;
+		position: relative;
+	}
+
+	img{
+		position: relative;
+	}
+</style>
+
+<body>
+
+	<img id="plane" src="plane.png" alt="小飞机">
+
+	<script type="text/javascript">
+		var plane = document.querySelector("#plane");
+		var offsetX;
+		var offsetY;
+
+		plane.ondragstart = function(e){
+			offsetX = e.offsetX;
+			offsetY = e.offsetY;
+		};
+
+		plane.ondrag = function(e){
+			var pageX = e.pageX;
+			var pageY = e.pageY;
+
+			if(pageX ==0 && pageY == 0){
+				return;
+			}
+
+			pageX = pageX-offsetX;
+			pageY = pageY-offsetY;
+
+			plane.style.left = pageX + 'px';
+			plane.style.top = pageY + 'px';
+		};
+
+		plane.ondragend = function(e){
+
+		};
+
+
+	</script>
+</body>
+</html>
